@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const sectionRef = ref<HTMLElement | null>(null);
 const formRef   = ref<HTMLFormElement | null>(null);
@@ -13,8 +10,7 @@ let ctx: gsap.Context | null = null;
 onMounted(() => {
   ctx = gsap.context(() => {
     gsap.fromTo(".contact-stagger", { opacity: 0, y: 30 }, {
-      opacity: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power3.out",
-      scrollTrigger: { trigger: sectionRef.value, start: "top 72%" },
+      opacity: 1, y: 0, duration: 0.8, stagger: 0.18, ease: "power3.out", delay: 0.1,
     });
   }, sectionRef.value!);
 });
@@ -54,7 +50,7 @@ const SOCIALS = [
 
 <template>
   <section id="contact" ref="sectionRef" class="contact-section">
-    <div class="container">
+    <div class="container contact-inner">
 
       <div class="contact-header contact-stagger">
         <p class="section-label">Contact</p>
@@ -152,9 +148,15 @@ const SOCIALS = [
 
 <style scoped>
 .contact-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 7rem 0 0;
   position: relative;
 }
+
+.contact-inner { flex: 1; }
 
 .contact-header {
   text-align: center; max-width: 680px; margin: 0 auto 4rem;
@@ -175,7 +177,6 @@ const SOCIALS = [
   .contact-grid { grid-template-columns: 4fr 8fr; }
 }
 
-/* Info */
 .contact-info {
   display: flex; flex-direction: column; gap: 2.5rem; justify-content: center;
 }
@@ -188,7 +189,6 @@ const SOCIALS = [
 .info-link { transition: color var(--transition); cursor: none; }
 .info-link:hover { color: var(--primary); }
 
-/* Social icon buttons */
 .social-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
 
 .social-icon-btn {
@@ -212,7 +212,6 @@ const SOCIALS = [
 
 .social-label { font-size: 0.78rem; }
 
-/* Form */
 .contact-form-wrap {
   padding: 2.5rem; position: relative; min-height: 300px;
 }
@@ -260,7 +259,6 @@ const SOCIALS = [
 .arrow-icon { transition: transform var(--transition); }
 .submit-btn:hover .arrow-icon { transform: translateX(4px); }
 
-/* Sent confirmation */
 .sent-msg {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -268,9 +266,8 @@ const SOCIALS = [
   text-align: center; padding: 2rem;
 }
 
-/* Footer */
 .contact-footer {
-  margin-top: 6rem; padding: 1.5rem 0;
+  margin-top: 4rem; padding: 1.5rem 0;
   border-top: 1px solid var(--border); text-align: center;
 }
 .contact-footer p {

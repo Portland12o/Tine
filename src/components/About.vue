@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const sectionRef = ref<HTMLElement | null>(null);
 let ctx: gsap.Context | null = null;
@@ -11,16 +8,13 @@ let ctx: gsap.Context | null = null;
 onMounted(() => {
   ctx = gsap.context(() => {
     gsap.fromTo(".about-left", { opacity: 0, x: -40 }, {
-      opacity: 1, x: 0, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: sectionRef.value, start: "top 72%" },
+      opacity: 1, x: 0, duration: 1, ease: "power3.out", delay: 0.1,
     });
     gsap.fromTo(".about-right", { opacity: 0, x: 40 }, {
-      opacity: 1, x: 0, duration: 1, ease: "power3.out",
-      scrollTrigger: { trigger: sectionRef.value, start: "top 72%" },
+      opacity: 1, x: 0, duration: 1, ease: "power3.out", delay: 0.1,
     });
     gsap.fromTo(".about-stat", { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power2.out",
-      scrollTrigger: { trigger: ".about-stats", start: "top 85%" },
+      opacity: 1, y: 0, duration: 0.6, stagger: 0.12, ease: "power2.out", delay: 0.4,
     });
   }, sectionRef.value!);
 });
@@ -83,7 +77,12 @@ onUnmounted(() => ctx?.revert());
 </template>
 
 <style scoped>
-.about-section { padding: 7rem 0; }
+.about-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 0;
+}
 
 .about-grid {
   display: grid;

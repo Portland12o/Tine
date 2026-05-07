@@ -55,7 +55,6 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   overflow-y: scroll; /* always reserve gutter so layout never shifts */
-  scroll-snap-type: y mandatory;
 }
 
 /* ─── Restore native cursor on touch / mobile ─────── */
@@ -122,12 +121,6 @@ button { cursor: none; font-family: inherit; }
   text-transform: uppercase;
   color: var(--primary);
   margin-bottom: 1rem;
-}
-
-/* ─── Section scroll-snap ────────────────────────── */
-main > section {
-  scroll-snap-align: start;
-  scroll-margin-top: 0;
 }
 
 /* ─── Fade transition (LoadingScreen → App) ──────── */

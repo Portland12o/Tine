@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const sectionRef = ref<HTMLElement | null>(null);
 const listRef   = ref<HTMLElement | null>(null);
@@ -21,17 +18,14 @@ const SKILLS = [
 onMounted(() => {
   ctx = gsap.context(() => {
     gsap.fromTo(".skills-header-content", { opacity: 0, y: 30 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-      scrollTrigger: { trigger: sectionRef.value, start: "top 80%" },
+      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.1,
     });
     gsap.fromTo(gsap.utils.toArray(".skill-row"), { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out",
-      scrollTrigger: { trigger: listRef.value, start: "top 85%" },
+      opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out", delay: 0.35,
     });
     gsap.fromTo(gsap.utils.toArray(".skill-fill"), { scaleX: 0 }, {
       scaleX: 1, duration: 1.1, stagger: 0.1, ease: "power3.out",
-      transformOrigin: "left center",
-      scrollTrigger: { trigger: listRef.value, start: "top 85%" },
+      transformOrigin: "left center", delay: 0.45,
     });
   }, sectionRef.value!);
 });
@@ -84,7 +78,12 @@ onUnmounted(() => ctx?.revert());
 </template>
 
 <style scoped>
-.skills-section { padding: 7rem 0; }
+.skills-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 0;
+}
 
 .skills-title {
   font-size: clamp(2rem, 4vw, 3.2rem);

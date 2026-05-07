@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import profileImage from "../assets/profile.svg?url";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const router = useRouter();
 
 const sectionRef = ref<HTMLElement | null>(null);
 const canvasRef = ref<HTMLCanvasElement | null>(null);
@@ -214,8 +217,7 @@ onUnmounted(() => {
   cleanupCanvas?.();
 });
 
-const scrollTo = (id: string) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+const navigateTo = (path: string) => router.push(path);
 </script>
 
 <template>
@@ -292,10 +294,10 @@ const scrollTo = (id: string) =>
         </p>
 
         <div class="hero-cta">
-          <a class="btn-primary" @click.prevent="scrollTo('projects')" data-testid="btn-view-projects">
+          <a class="btn-primary" @click.prevent="navigateTo('/projects')" data-testid="btn-view-projects">
             View Projects
           </a>
-          <a class="btn-ghost" @click.prevent="scrollTo('contact')" data-testid="btn-contact-me">
+          <a class="btn-ghost" @click.prevent="navigateTo('/contact')" data-testid="btn-contact-me">
             Contact Me
           </a>
         </div>

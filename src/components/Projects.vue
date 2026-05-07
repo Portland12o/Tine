@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const sectionRef = ref<HTMLElement | null>(null);
 let ctx: gsap.Context | null = null;
@@ -11,12 +8,10 @@ let ctx: gsap.Context | null = null;
 onMounted(() => {
   ctx = gsap.context(() => {
     gsap.fromTo(".projects-header", { opacity: 0, y: 30 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: "power2.out",
-      scrollTrigger: { trigger: sectionRef.value, start: "top 80%" },
+      opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.1,
     });
     gsap.fromTo(".projects-placeholder", { opacity: 0, y: 20 }, {
-      opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
-      scrollTrigger: { trigger: ".projects-placeholder", start: "top 88%" },
+      opacity: 1, y: 0, duration: 0.7, ease: "power2.out", delay: 0.35,
     });
   }, sectionRef.value!);
 });
@@ -37,7 +32,6 @@ onUnmounted(() => ctx?.revert());
         </p>
       </div>
 
-      <!-- Empty placeholder – projects will be added manually -->
       <div class="projects-placeholder">
         <div class="placeholder-inner">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="placeholder-icon">
@@ -53,7 +47,12 @@ onUnmounted(() => ctx?.revert());
 </template>
 
 <style scoped>
-.projects-section { padding: 7rem 0; }
+.projects-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 7rem 0;
+}
 
 .projects-header {
   display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 4rem;
@@ -70,7 +69,6 @@ onUnmounted(() => ctx?.revert());
   max-width: 400px; line-height: 1.7; font-size: 0.95rem;
 }
 
-/* Placeholder */
 .projects-placeholder {
   border: 1.5px dashed var(--border);
   border-radius: 8px;
@@ -91,9 +89,5 @@ onUnmounted(() => ctx?.revert());
 .placeholder-text {
   font-family: var(--font-display); font-size: 1.1rem;
   font-weight: 600; color: var(--fg-dim);
-}
-.placeholder-sub {
-  font-size: 0.82rem; color: var(--fg-dim); opacity: 0.6;
-  font-weight: 300;
 }
 </style>
