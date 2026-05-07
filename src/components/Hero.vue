@@ -321,10 +321,6 @@ const navigateTo = (path: string) => router.push(path);
       </div>
     </div>
 
-    <div class="scroll-indicator">
-      <span class="scroll-label">Scroll</span>
-      <div class="scroll-line"><div class="scroll-line-fill" /></div>
-    </div>
   </section>
 </template>
 
@@ -416,6 +412,10 @@ const navigateTo = (path: string) => router.push(path);
 .photo-overlay {
   position: absolute; inset: 0;
   background: linear-gradient(to top, rgba(9,9,12,0.35) 0%, transparent 50%);
+  transition: background var(--transition);
+}
+[data-theme="light"] .photo-overlay {
+  background: linear-gradient(to top, rgba(244,244,246,0.4) 0%, transparent 50%);
 }
 
 .avail-badge {

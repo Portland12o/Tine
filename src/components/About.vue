@@ -117,18 +117,24 @@ onUnmounted(() => ctx?.revert());
   font-family: var(--font-display);
   font-size: 6rem;
   font-weight: 900;
-  color: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.05);
   letter-spacing: -0.05em;
   text-transform: uppercase;
   user-select: none;
+  transition: color var(--transition);
+}
+[data-theme="light"] .about-card-initials {
+  color: rgba(0,0,0,0.07);
 }
 .about-card-code {
   font-family: var(--font-mono);
   font-size: 0.7rem;
-  color: rgba(245, 166, 35, 0.5);
+  color: var(--primary);
+  opacity: 0.65;
   line-height: 1.8;
   position: relative;
   z-index: 1;
+  transition: color var(--transition);
 }
 
 .about-paragraphs {
