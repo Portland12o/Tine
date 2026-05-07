@@ -86,4 +86,9 @@ onUnmounted(() => {
   z-index: 9999;
   transform: translate(-50%, -50%);
 }
+
+@media (pointer: coarse) {
+  .cursor-ring,
+  .cursor-dot { display: none; }
+}
 </style>
