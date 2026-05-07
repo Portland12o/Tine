@@ -3,7 +3,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import profileImage from "../assets/profile.svg?url";
+import profileImage from "../assets/profile.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 

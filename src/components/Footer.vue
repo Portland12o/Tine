@@ -100,8 +100,8 @@ const SOCIALS = [
         <p class="footer-copy">
           © {{ new Date().getFullYear() }} Justine Buncag. All rights reserved.
         </p>
-        <p class="footer-built">
-          Built with <span class="footer-heart">♥</span> using Vue 3 + Vite
+        <p class="footer-policy">
+          Front-End Developer · Philippines
         </p>
       </div>
     </div>
@@ -267,11 +267,10 @@ const SOCIALS = [
 }
 
 .footer-copy,
-.footer-built {
+.footer-policy {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   color: var(--fg-dim);
   opacity: 0.6;
 }
-.footer-heart { color: var(--primary); }
 </style>
