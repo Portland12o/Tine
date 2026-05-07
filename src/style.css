@@ -58,6 +58,11 @@ html {
   overflow-y: scroll; /* always reserve gutter so layout never shifts */
 }
 
+/* ─── Restore native cursor on text inputs (all devices) ─── */
+input, textarea, select, [contenteditable] {
+  cursor: text;
+}
+
 /* ─── Restore native cursor on touch / mobile ─────── */
 @media (pointer: coarse) {
   html    { cursor: auto; }
