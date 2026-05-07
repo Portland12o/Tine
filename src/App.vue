@@ -5,6 +5,7 @@ import { useTheme } from "./composables/useTheme";
 import LoadingScreen from "./components/LoadingScreen.vue";
 import CustomCursor from "./components/CustomCursor.vue";
 import Navbar from "./components/Navbar.vue";
+import Footer from "./components/Footer.vue";
 
 const loading = ref(true);
 const onComplete = () => { loading.value = false; };
@@ -25,6 +26,7 @@ useTheme();
           </Transition>
         </RouterView>
       </main>
+      <Footer />
     </div>
   </Transition>
 </template>

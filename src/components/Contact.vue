@@ -140,9 +140,6 @@ const SOCIALS = [
       </div>
     </div>
 
-    <div class="contact-footer">
-      <p>© {{ new Date().getFullYear() }} Justine Buncag. All rights reserved.</p>
-    </div>
   </section>
 </template>
 
