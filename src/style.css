@@ -41,8 +41,8 @@
 /* ─── Shared / structural tokens ─────────────────── */
 :root {
   --radius: 4px;
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-display: 'Unbounded', sans-serif;
+  --font-body: 'Unbounded', sans-serif;
   --font-mono: 'Menlo', 'Monaco', 'Courier New', monospace;
   --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.55s cubic-bezier(0.16, 1, 0.3, 1);
