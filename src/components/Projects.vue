@@ -45,7 +45,6 @@ onUnmounted(() => ctx?.revert());
             <path d="M3 9h18M9 21V9"/>
           </svg>
           <p class="placeholder-text">Projects will appear here</p>
-          <p class="placeholder-sub">Add your work to showcase your projects.</p>
         </div>
       </div>
 

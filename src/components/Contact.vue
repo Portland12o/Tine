@@ -121,16 +121,16 @@ const SOCIALS = [
             <div class="form-row">
               <div class="form-group">
                 <label for="c-name">Name</label>
-                <input type="text" id="c-name" required placeholder="John Doe" data-testid="input-name" />
+                <input type="text" id="c-name" required data-testid="input-name" />
               </div>
               <div class="form-group">
                 <label for="c-email">Email</label>
-                <input type="email" id="c-email" required placeholder="john@example.com" data-testid="input-email" />
+                <input type="email" id="c-email" required data-testid="input-email" />
               </div>
             </div>
             <div class="form-group">
               <label for="c-message">Message</label>
-              <textarea id="c-message" rows="4" required placeholder="Tell me about your project..." data-testid="input-message" />
+              <textarea id="c-message" rows="4" required data-testid="input-message" />
             </div>
             <button type="submit" class="submit-btn" data-testid="btn-submit-contact">
               Send Message

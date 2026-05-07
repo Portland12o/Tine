@@ -7,7 +7,9 @@ import profileImage from "../assets/profile.svg?url";
 gsap.registerPlugin(ScrollTrigger);
 
 const sectionRef = ref<HTMLElement | null>(null);
+const canvasRef = ref<HTMLCanvasElement | null>(null);
 let ctx: gsap.Context | null = null;
+let animFrameId: number | null = null;
 
 /* ── Only: C#, Python, CSS, Git, HTML, Figma ── */
 const LANG_ICONS = [
@@ -60,7 +62,145 @@ const LANG_ICONS = [
   },
 ];
 
+/* ── Particle network canvas ── */
+interface Particle {
+  x: number; y: number;
+  vx: number; vy: number;
+  radius: number; alpha: number;
+  pulse: number; pulseSpeed: number;
+}
+
+const mouse = { x: -9999, y: -9999 };
+const PARTICLE_COUNT = 72;
+const CONNECTION_DIST = 140;
+const MOUSE_REPEL_DIST = 110;
+const GOLD = "245,166,35";
+
+function initCanvas() {
+  const canvas = canvasRef.value;
+  if (!canvas) return;
+  const c = canvas.getContext("2d")!;
+  let particles: Particle[] = [];
+  let W = 0, H = 0;
+
+  function resize() {
+    const rect = canvas!.getBoundingClientRect();
+    W = canvas!.width  = rect.width;
+    H = canvas!.height = rect.height;
+  }
+
+  function spawn(): Particle {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.38,
+      vy: (Math.random() - 0.5) * 0.38,
+      radius: Math.random() * 1.8 + 0.7,
+      alpha: Math.random() * 0.5 + 0.25,
+      pulse: Math.random() * Math.PI * 2,
+      pulseSpeed: Math.random() * 0.012 + 0.006,
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: PARTICLE_COUNT }, spawn);
+  }
+
+  function draw() {
+    c.clearRect(0, 0, W, H);
+
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
+
+      p.pulse += p.pulseSpeed;
+      const pAlpha = p.alpha * (0.7 + 0.3 * Math.sin(p.pulse));
+
+      const dx = mouse.x - p.x;
+      const dy = mouse.y - p.y;
+      const mdist = Math.sqrt(dx * dx + dy * dy);
+      if (mdist < MOUSE_REPEL_DIST && mdist > 0) {
+        const force = (MOUSE_REPEL_DIST - mdist) / MOUSE_REPEL_DIST * 0.6;
+        p.vx -= (dx / mdist) * force;
+        p.vy -= (dy / mdist) * force;
+      }
+
+      p.vx *= 0.985;
+      p.vy *= 0.985;
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < -10) p.x = W + 10;
+      else if (p.x > W + 10) p.x = -10;
+      if (p.y < -10) p.y = H + 10;
+      else if (p.y > H + 10) p.y = -10;
+
+      c.beginPath();
+      c.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      c.fillStyle = `rgba(${GOLD},${pAlpha})`;
+      c.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const cx = p.x - q.x;
+        const cy = p.y - q.y;
+        const dist = Math.sqrt(cx * cx + cy * cy);
+        if (dist < CONNECTION_DIST) {
+          const lineAlpha = (1 - dist / CONNECTION_DIST) * 0.18;
+          c.beginPath();
+          c.moveTo(p.x, p.y);
+          c.lineTo(q.x, q.y);
+          c.strokeStyle = `rgba(${GOLD},${lineAlpha})`;
+          c.lineWidth = 0.7;
+          c.stroke();
+        }
+      }
+
+      const mdistClose = Math.sqrt((mouse.x - p.x) ** 2 + (mouse.y - p.y) ** 2);
+      if (mdistClose < CONNECTION_DIST * 1.4) {
+        const mouseLineAlpha = (1 - mdistClose / (CONNECTION_DIST * 1.4)) * 0.32;
+        c.beginPath();
+        c.moveTo(p.x, p.y);
+        c.lineTo(mouse.x, mouse.y);
+        c.strokeStyle = `rgba(${GOLD},${mouseLineAlpha})`;
+        c.lineWidth = 0.9;
+        c.stroke();
+      }
+    }
+
+    animFrameId = requestAnimationFrame(draw);
+  }
+
+  const ro = new ResizeObserver(init);
+  ro.observe(canvas);
+  init();
+  draw();
+
+  return () => {
+    ro.disconnect();
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+  };
+}
+
+function onMouseMove(e: MouseEvent) {
+  const canvas = canvasRef.value;
+  if (!canvas) return;
+  const rect = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - rect.left;
+  mouse.y = e.clientY - rect.top;
+}
+
+function onMouseLeave() {
+  mouse.x = -9999;
+  mouse.y = -9999;
+}
+
+let cleanupCanvas: (() => void) | undefined;
+
 onMounted(() => {
+  cleanupCanvas = initCanvas();
+
   ctx = gsap.context(() => {
     gsap.to(".hero-orb", {
       y: "25%", ease: "none",
@@ -68,15 +208,26 @@ onMounted(() => {
     });
   }, sectionRef.value!);
 });
-onUnmounted(() => ctx?.revert());
+
+onUnmounted(() => {
+  ctx?.revert();
+  cleanupCanvas?.();
+});
 
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 </script>
 
 <template>
-  <section id="hero" ref="sectionRef" class="hero">
+  <section
+    id="hero"
+    ref="sectionRef"
+    class="hero"
+    @mousemove="onMouseMove"
+    @mouseleave="onMouseLeave"
+  >
     <div class="hero-bg">
+      <canvas ref="canvasRef" class="hero-canvas" />
       <div class="hero-orb orb-1" />
       <div class="hero-orb orb-2" />
     </div>
@@ -189,14 +340,21 @@ const scrollTo = (id: string) =>
   position: absolute; inset: 0;
   pointer-events: none; overflow: hidden; z-index: 0;
 }
+
+.hero-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
 .hero-orb { position: absolute; border-radius: 50%; filter: blur(130px); }
 .orb-1 {
   top: 15%; left: 25%; width: 560px; height: 560px;
-  background: radial-gradient(circle, rgba(245,166,35,0.09) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 70%);
 }
 .orb-2 {
   bottom: 5%; right: 5%; width: 480px; height: 480px;
-  background: radial-gradient(circle, rgba(245,166,35,0.04) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(245,166,35,0.035) 0%, transparent 70%);
 }
 
 .hero-inner {
@@ -212,7 +370,6 @@ const scrollTo = (id: string) =>
 .hero-photo-col { display: flex; justify-content: center; }
 @media (min-width: 1024px) { .hero-photo-col { justify-content: flex-start; } }
 
-/* Extra margin to give icons breathing room */
 .photo-wrap {
   position: relative;
   width: 230px;
@@ -221,7 +378,6 @@ const scrollTo = (id: string) =>
 @media (min-width: 768px)  { .photo-wrap { width: 260px; } }
 @media (min-width: 1024px) { .photo-wrap { width: 280px; } }
 
-/* Language icons */
 .lang-icon {
   position: absolute; z-index: 20;
   border-radius: 8px; overflow: hidden;
@@ -235,7 +391,6 @@ const scrollTo = (id: string) =>
   50%       { transform: translateY(-11px) rotate(1.5deg);  opacity: 0.72; }
 }
 
-/* Photo frame */
 .photo-frame { position: relative; z-index: 2; }
 .corner {
   position: absolute; width: 38px; height: 38px;
@@ -279,7 +434,6 @@ const scrollTo = (id: string) =>
   50%       { opacity: 0.8; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
 }
 
-/* Text column */
 .hero-text-col {
   display: flex; flex-direction: column;
   text-align: center; margin-top: 3.5rem;
