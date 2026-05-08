@@ -53,6 +53,9 @@ onUnmounted(() => ctx?.revert());
   align-items: center;
   padding: 7rem 0;
 }
+@media (max-width: 767px) {
+  .projects-section { padding: 5rem 0 4rem; }
+}
 
 .projects-header {
   display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 4rem;
@@ -67,6 +70,9 @@ onUnmounted(() => ctx?.revert());
 .projects-sub {
   color: var(--fg-dim); font-weight: 300;
   max-width: 400px; line-height: 1.7; font-size: 0.95rem;
+}
+@media (max-width: 767px) {
+  .projects-sub { font-size: 0.9rem; line-height: 1.9; }
 }
 
 .projects-placeholder {

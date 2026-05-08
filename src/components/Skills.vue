@@ -84,6 +84,9 @@ onUnmounted(() => ctx?.revert());
   align-items: center;
   padding: 7rem 0;
 }
+@media (max-width: 767px) {
+  .skills-section { padding: 5rem 0 4rem; }
+}
 
 .skills-title {
   font-size: clamp(2rem, 4vw, 3.2rem);
@@ -92,6 +95,9 @@ onUnmounted(() => ctx?.revert());
 .skills-sub {
   font-size: 1rem; color: var(--fg-dim); font-weight: 300;
   line-height: 1.7; max-width: 560px; margin-bottom: 3.5rem;
+}
+@media (max-width: 767px) {
+  .skills-sub { font-size: 0.9rem; line-height: 1.9; margin-bottom: 2.5rem; }
 }
 
 .skills-grid {

@@ -152,6 +152,9 @@ const SOCIALS = [
   padding: 7rem 0 0;
   position: relative;
 }
+@media (max-width: 767px) {
+  .contact-section { padding: 5rem 0 3rem; }
+}
 
 .contact-inner { flex: 1; }
 
@@ -164,6 +167,10 @@ const SOCIALS = [
 }
 .contact-sub {
   font-size: 1rem; color: var(--fg-dim); font-weight: 300; line-height: 1.7;
+}
+@media (max-width: 767px) {
+  .contact-sub { font-size: 0.9rem; line-height: 1.9; }
+  .contact-header { margin-bottom: 2.5rem; }
 }
 
 .contact-grid {

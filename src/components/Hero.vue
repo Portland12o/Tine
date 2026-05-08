@@ -439,7 +439,9 @@ const navigateTo = (path: string) => router.push(path);
 .hero-text-col {
   display: flex; flex-direction: column;
   text-align: center; margin-top: 3.5rem;
+  padding: 0 4px;
 }
+@media (min-width: 480px) { .hero-text-col { padding: 0; } }
 @media (min-width: 1024px) { .hero-text-col { text-align: left; margin-top: 0; } }
 
 .hero-role-badge {
@@ -463,6 +465,9 @@ const navigateTo = (path: string) => router.push(path);
 .hero-sub {
   font-size: 1rem; line-height: 1.7; color: var(--fg-dim);
   font-weight: 300; max-width: 500px; margin: 0 auto 2.5rem;
+}
+@media (max-width: 479px) {
+  .hero-sub { font-size: 0.9rem; line-height: 1.85; margin-bottom: 2rem; }
 }
 @media (min-width: 1024px) { .hero-sub { margin-left: 0; } }
 .hero-sub strong { color: var(--fg); font-weight: 600; }

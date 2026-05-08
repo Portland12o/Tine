@@ -81,7 +81,10 @@ onUnmounted(() => ctx?.revert());
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 7rem 0;
+  padding: 6rem 0;
+}
+@media (max-width: 767px) {
+  .about-section { padding: 5rem 0 4rem; }
 }
 
 .about-grid {
@@ -99,6 +102,9 @@ onUnmounted(() => ctx?.revert());
   color: var(--fg);
   margin-bottom: 2.5rem;
   line-height: 1.05;
+}
+@media (max-width: 767px) {
+  .about-heading { margin-bottom: 1.5rem; }
 }
 
 .about-card {
@@ -147,6 +153,14 @@ onUnmounted(() => ctx?.revert());
   font-weight: 300;
   margin-bottom: 3rem;
 }
+@media (max-width: 767px) {
+  .about-paragraphs {
+    gap: 1.75rem;
+    line-height: 2;
+    font-size: 0.95rem;
+    margin-bottom: 2.5rem;
+  }
+}
 .about-paragraphs strong { color: var(--fg); font-weight: 600; }
 .about-paragraphs em { color: var(--fg); font-style: italic; }
 
@@ -156,6 +170,9 @@ onUnmounted(() => ctx?.revert());
   align-items: center;
   padding-top: 2.5rem;
   border-top: 1px solid var(--border);
+}
+@media (max-width: 767px) {
+  .about-stats { padding-top: 2rem; gap: 1.5rem; }
 }
 .about-stat { text-align: left; }
 .about-stat-num {
