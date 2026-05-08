@@ -84,7 +84,7 @@ onUnmounted(() => ctx?.revert());
   padding: 6rem 0;
 }
 @media (max-width: 767px) {
-  .about-section { padding: 5rem 0 4rem; }
+  .about-section { padding: 5rem 0 4rem; align-items: flex-start; }
 }
 
 .about-grid {
@@ -92,19 +92,22 @@ onUnmounted(() => ctx?.revert());
   grid-template-columns: 1fr;
   gap: 4rem;
 }
+@media (max-width: 767px) {
+  .about-grid { gap: 2rem; }
+}
 @media (min-width: 1024px) {
   .about-grid { grid-template-columns: 5fr 7fr; align-items: center; }
 }
 
 .about-heading {
-  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-size: clamp(2.4rem, 9vw, 3.5rem);
   font-weight: 700;
   color: var(--fg);
   margin-bottom: 2.5rem;
   line-height: 1.05;
 }
 @media (max-width: 767px) {
-  .about-heading { margin-bottom: 1.5rem; }
+  .about-heading { margin-bottom: 0; }
 }
 
 .about-card {
@@ -155,10 +158,10 @@ onUnmounted(() => ctx?.revert());
 }
 @media (max-width: 767px) {
   .about-paragraphs {
-    gap: 1.75rem;
-    line-height: 2;
-    font-size: 0.95rem;
-    margin-bottom: 2.5rem;
+    gap: 1.5rem;
+    line-height: 1.9;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
   }
 }
 .about-paragraphs strong { color: var(--fg); font-weight: 600; }
@@ -172,9 +175,16 @@ onUnmounted(() => ctx?.revert());
   border-top: 1px solid var(--border);
 }
 @media (max-width: 767px) {
-  .about-stats { padding-top: 2rem; gap: 1.5rem; }
+  .about-stats {
+    padding-top: 1.75rem;
+    justify-content: space-between;
+    gap: 0;
+  }
 }
 .about-stat { text-align: left; }
+@media (max-width: 767px) {
+  .about-stat { text-align: center; }
+}
 .about-stat-num {
   font-family: var(--font-display);
   font-size: 2.2rem;
@@ -182,12 +192,18 @@ onUnmounted(() => ctx?.revert());
   color: var(--primary);
   letter-spacing: -0.04em;
 }
+@media (max-width: 767px) {
+  .about-stat-num { font-size: 1.8rem; }
+}
 .about-stat-label {
   font-size: 0.6rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--fg-dim);
   margin-top: 3px;
+}
+@media (max-width: 767px) {
+  .about-stat-label { font-size: 0.55rem; letter-spacing: 0.12em; }
 }
 .about-stat-div {
   width: 1px;
