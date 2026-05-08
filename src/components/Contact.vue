@@ -182,15 +182,16 @@ const SOCIALS = [
 }
 
 .contact-info {
-  display: flex; flex-direction: column; gap: 2.5rem; justify-content: center;
+  display: flex; flex-direction: column; gap: 2rem; justify-content: center;
 }
+@media (min-width: 768px) { .contact-info { gap: 2.5rem; } }
 .contact-info-item { display: flex; flex-direction: column; gap: 8px; }
 .info-label {
   font-size: 0.6rem; letter-spacing: 0.18em;
   text-transform: uppercase; color: var(--fg-dim);
 }
 .info-value { font-size: 0.95rem; font-weight: 500; color: var(--fg); }
-.info-link { transition: color var(--transition); cursor: none; }
+.info-link { transition: color var(--transition); cursor: none; word-break: break-word; }
 .info-link:hover { color: var(--primary); }
 
 .social-row { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
@@ -217,8 +218,9 @@ const SOCIALS = [
 .social-label { font-size: 0.78rem; }
 
 .contact-form-wrap {
-  padding: 2.5rem; position: relative; min-height: 300px;
+  padding: 1.5rem; position: relative; min-height: 300px;
 }
+@media (min-width: 480px) { .contact-form-wrap { padding: 2rem; } }
 @media (min-width: 768px) { .contact-form-wrap { padding: 3rem 3.5rem; } }
 
 .contact-form { display: flex; flex-direction: column; gap: 2rem; }
@@ -254,11 +256,13 @@ const SOCIALS = [
 
 .submit-btn {
   display: inline-flex; align-items: center; gap: 10px;
-  align-self: flex-start; padding: 1rem 2.5rem;
+  align-self: stretch; padding: 1rem 2.5rem;
   background: var(--fg); color: var(--bg);
   font-size: 0.85rem; font-weight: 600; border: none; cursor: none;
   transition: background var(--transition), box-shadow var(--transition);
+  justify-content: center;
 }
+@media (min-width: 480px) { .submit-btn { align-self: flex-start; } }
 .submit-btn:hover { background: var(--primary); box-shadow: 0 0 30px rgba(245,166,35,0.3); }
 .arrow-icon { transition: transform var(--transition); }
 .submit-btn:hover .arrow-icon { transform: translateX(4px); }

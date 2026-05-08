@@ -115,7 +115,8 @@ const SOCIALS = [
   transition: background var(--transition), border-color var(--transition);
 }
 
-.footer-top { padding: 4rem 0 3rem; }
+.footer-top { padding: 3rem 0 2.5rem; }
+@media (min-width: 640px) { .footer-top { padding: 4rem 0 3rem; } }
 
 .footer-inner {
   display: grid;
@@ -152,6 +153,9 @@ const SOCIALS = [
   color: var(--fg-dim);
   font-weight: 300;
   max-width: 280px;
+}
+@media (max-width: 639px) {
+  .footer-tagline br { display: none; }
 }
 
 .footer-socials {

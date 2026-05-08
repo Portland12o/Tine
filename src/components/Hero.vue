@@ -358,11 +358,14 @@ const navigateTo = (path: string) => router.push(path);
 .hero-inner {
   position: relative; z-index: 1;
   display: grid; grid-template-columns: 1fr;
-  gap: 3rem; align-items: center;
-  padding-top: 3rem; padding-bottom: 6rem;
+  gap: 2rem; align-items: center;
+  padding-top: 2rem; padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .hero-inner { gap: 3rem; padding-top: 3rem; padding-bottom: 5rem; }
 }
 @media (min-width: 1024px) {
-  .hero-inner { grid-template-columns: 5fr 7fr; gap: 4rem; }
+  .hero-inner { grid-template-columns: 5fr 7fr; gap: 4rem; padding-bottom: 6rem; }
 }
 
 .hero-photo-col { display: flex; justify-content: center; }
@@ -370,10 +373,11 @@ const navigateTo = (path: string) => router.push(path);
 
 .photo-wrap {
   position: relative;
-  width: 230px;
-  margin: 52px 60px 60px 60px;
+  width: 180px;
+  margin: 44px 44px 50px 44px;
 }
-@media (min-width: 768px)  { .photo-wrap { width: 260px; } }
+@media (min-width: 400px)  { .photo-wrap { width: 210px; margin: 48px 52px 54px 52px; } }
+@media (min-width: 768px)  { .photo-wrap { width: 250px; margin: 52px 60px 60px 60px; } }
 @media (min-width: 1024px) { .photo-wrap { width: 280px; } }
 
 .lang-icon {
@@ -383,6 +387,9 @@ const navigateTo = (path: string) => router.push(path);
   pointer-events: none;
   animation: icon-float 5s ease-in-out infinite;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.45));
+}
+@media (max-width: 399px) {
+  .lang-icon { transform: scale(0.8); transform-origin: center; }
 }
 @keyframes icon-float {
   0%, 100% { transform: translateY(0)    rotate(-1.5deg); opacity: 0.92; }
@@ -438,10 +445,9 @@ const navigateTo = (path: string) => router.push(path);
 
 .hero-text-col {
   display: flex; flex-direction: column;
-  text-align: center; margin-top: 3.5rem;
-  padding: 0 4px;
+  text-align: center; margin-top: 1rem;
+  padding: 0;
 }
-@media (min-width: 480px) { .hero-text-col { padding: 0; } }
 @media (min-width: 1024px) { .hero-text-col { text-align: left; margin-top: 0; } }
 
 .hero-role-badge {

@@ -230,6 +230,9 @@ onUnmounted(() => window.removeEventListener("scroll", onScroll));
   border-bottom: 1px solid var(--border);
   transition: color var(--transition), background var(--transition);
 }
+@media (pointer: coarse) {
+  .mobile-link { cursor: auto; }
+}
 .mobile-link:last-child { border-bottom: none; }
 .mobile-link:hover, .mobile-link.active { color: var(--primary); background: var(--primary-glow); }
 
